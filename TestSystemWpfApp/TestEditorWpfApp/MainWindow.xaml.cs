@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TestSystemWpfApp;
+namespace TestEditorWpfApp;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
