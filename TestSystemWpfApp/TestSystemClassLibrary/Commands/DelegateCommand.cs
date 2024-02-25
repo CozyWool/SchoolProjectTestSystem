@@ -1,4 +1,4 @@
-﻿namespace TestEditorWpfApp.Commands;
+﻿namespace TestSystemClassLibrary.Commands;
 
 public sealed class DelegateCommand : Command
 {
