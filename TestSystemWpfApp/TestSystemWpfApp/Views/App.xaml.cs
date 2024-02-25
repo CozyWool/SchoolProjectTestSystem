@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TestSystemWpfApp.ViewModels;
+using Application = System.Windows.Application;
 
 namespace TestSystemWpfApp.Views;
 
@@ -10,7 +12,8 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        var mainWindow = new MainView();
-        mainWindow.Show();
+        var view = new TestSystemView();
+        var viewModel = new TestSystemViewModel(view);
+        view.Show();
     }
 }

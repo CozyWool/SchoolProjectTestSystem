@@ -34,13 +34,13 @@
         <Menu DockPanel.Dock="Top" IsMainMenu="True">
             <MenuItem Header="Файл">
                 <MenuItem Header="Новый тест" Command="{Binding CreateNewTestCommand}" />
-                <MenuItem Header="Открыть тест" Command="{Binding OpenTestCommand}"/>
-                <MenuItem Header="Сохранить" Command="{Binding SaveTestCommand}"/>
+                <MenuItem Header="Открыть тест" Command="{Binding OpenTestCommand}" />
+                <MenuItem Header="Сохранить" Command="{Binding SaveTestCommand}" />
                 <Separator />
-                <MenuItem Header="Выход" Command="{Binding QuitCommand}"/>
+                <MenuItem Header="Выход" Command="{Binding QuitCommand}" />
             </MenuItem>
             <MenuItem Header="Тест">
-                <MenuItem Header="Новый вопрос" Command="{Binding CreateNewQuestionCommand}"/>
+                <MenuItem Header="Новый вопрос" Command="{Binding CreateNewQuestionCommand}" />
                 <MenuItem Header="Удалить вопрос" Command="{Binding DeleteQuestionCommand}" />
                 <!-- <Separator /> -->
                 <!-- <MenuItem Header="Дальше(проверить)..." /> -->
@@ -55,6 +55,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -67,15 +68,22 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Новый тест" HorizontalAlignment="Left"
                                         Command="{Binding CreateNewTestCommand}" />
-                                <Button Content="Открыть тест" HorizontalAlignment="Left" 
-                                        Command="{Binding OpenTestCommand}"/>
+                                <Button Content="Открыть тест" HorizontalAlignment="Left"
+                                        Command="{Binding OpenTestCommand}" />
                             </StackPanel>
                         </StackPanel>
                     </BlockUIContainer>
                 </FlowDocument>
             </RichTextBox>
-
-            <Grid Grid.Row="2" Grid.Column="0">
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Название теста:"/>
+                <TextBox Grid.Column="1" Text="{Binding CurrentTest.Name}"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -85,12 +93,12 @@
                          SelectedItem="{Binding SelectedQuestion}" Margin="2.5"
                          SelectedIndex="{Binding SelectedQuestionIndex}" />
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Button Content="Новый вопрос" Command="{Binding CreateNewQuestionCommand}"/>
-                    <Button Content="Удалить вопрос" Command="{Binding DeleteQuestionCommand}"/>
+                    <Button Content="Новый вопрос" Command="{Binding CreateNewQuestionCommand}" />
+                    <Button Content="Удалить вопрос" Command="{Binding DeleteQuestionCommand}" />
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="2" Grid.Column="1">
+            <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="0.7*" />
@@ -117,20 +125,20 @@
 
                     <RadioButton Grid.Row="0" Grid.Column="0" Content="1"
                                  HorizontalAlignment="Center"
-                                 VerticalAlignment="Center" 
-                                 IsChecked="{Binding SelectedQuestion.FirstVariant.IsCorrect}"/>
+                                 VerticalAlignment="Center"
+                                 IsChecked="{Binding SelectedQuestion.FirstVariant.IsCorrect}" />
                     <RadioButton Grid.Row="1" Grid.Column="0" Content="2"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.SecondVariant.IsCorrect}"/>
+                                 IsChecked="{Binding SelectedQuestion.SecondVariant.IsCorrect}" />
                     <RadioButton Grid.Row="2" Grid.Column="0" Content="3"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.ThirdVariant.IsCorrect}"/>
+                                 IsChecked="{Binding SelectedQuestion.ThirdVariant.IsCorrect}" />
                     <RadioButton Grid.Row="3" Grid.Column="0" Content="4"
                                  HorizontalAlignment="Center"
-                                 VerticalAlignment="Center" 
-                                 IsChecked="{Binding SelectedQuestion.FourthVariant.IsCorrect}"/>
+                                 VerticalAlignment="Center"
+                                 IsChecked="{Binding SelectedQuestion.FourthVariant.IsCorrect}" />
 
                     <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0"
                              Text="{Binding SelectedQuestion.FirstVariant.Text}" />
@@ -147,8 +155,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Предыдущий вопрос" Width="Auto" Command="{Binding PreviousQuestionCommand}"/>
-                    <Button Grid.Column="1" Content="Следующий вопрос" Width="Auto" Command="{Binding NextQuestionCommand}"/>
+                    <Button Grid.Column="0" Content="Предыдущий вопрос" Width="Auto"
+                            Command="{Binding PreviousQuestionCommand}" />
+                    <Button Grid.Column="1" Content="Следующий вопрос" Width="Auto"
+                            Command="{Binding NextQuestionCommand}" />
                 </Grid>
             </Grid>
         </Grid>

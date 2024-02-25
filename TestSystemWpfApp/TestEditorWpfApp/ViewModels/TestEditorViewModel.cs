@@ -85,7 +85,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
                     MessageBoxImage.Warning);
             }
         }, _ => IsTestCreated);
-        OpenTestCommand = new DelegateCommand(_ => LoadTest());
+        OpenTestCommand = new DelegateCommand(_ => OpenTest());
         QuitCommand = new DelegateCommand(_ => Quit());
     }
 
@@ -180,7 +180,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
     }
 
 
-    private void LoadTest()
+    private void OpenTest()
     {
         if (!SaveChanges()) return;
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace TestSystemClassLibrary.Models;
 
@@ -7,6 +8,7 @@ public class QuestionVariant : INotifyPropertyChanged
 {
     private string _text;
     private bool _isCorrect;
+    [JsonIgnore]
     public bool IsChanged { get; set; }
 
     public QuestionVariant() : this("", false)

@@ -1,0 +1,163 @@
+﻿<Window x:Class="TestSystemWpfApp.Views.TestSystemView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:TestSystemWpfApp.ViewModels"
+        mc:Ignorable="d"
+        Title="Тестирующая система" Height="600" Width="800"
+        d:DataContext="{d:DesignInstance viewmodels:TestSystemViewModel}">
+    <Window.Resources>
+        <Style TargetType="MenuItem">
+            <Setter Property="Margin" Value="2.5" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="2.5" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="2.5" />
+        </Style>
+        <Style TargetType="RichTextBox">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2.5" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="25" />
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" IsMainMenu="True">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть тест" Command="{Binding OpenTestCommand}" />
+                <Separator />
+                <MenuItem Header="Выход" Command="{Binding QuitCommand}" />
+            </MenuItem>
+            <MenuItem Header="Тест">
+                <MenuItem Header="Начать тест" Command="{Binding StartTestCommand}" />
+                <MenuItem Header="Закончить тест" Command="{Binding EndTestCommand}" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{Binding QuestionText}" Foreground="DimGray" />
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="ChooseTestRichTextBox"
+                         Visibility="Visible">
+                <FlowDocument>
+                    <BlockUIContainer>
+                        <StackPanel HorizontalAlignment="Left">
+                            <TextBlock Text="Для начала работы выберите тест..." FontSize="14" />
+                            <Button Content="Открыть тест" HorizontalAlignment="Left"
+                                    Command="{Binding OpenTestCommand}" />
+                        </StackPanel>
+                    </BlockUIContainer>
+                </FlowDocument>
+            </RichTextBox>
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="StartTestRichTextBox"
+                         Visibility="Collapsed">
+                <FlowDocument>
+                    <BlockUIContainer>
+                        <StackPanel HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding BeforeTestText}" FontSize="14" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Начать тест" HorizontalAlignment="Left"
+                                        Command="{Binding StartTestCommand}" />
+                                <Button Content="Закрыть тест" HorizontalAlignment="Left"
+                                        Command="{Binding CloseTestCommand}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </BlockUIContainer>
+                </FlowDocument>
+            </RichTextBox>
+
+            <TextBox Grid.Row="1" IsReadOnly="True" Name="ConditionTextBox"
+                     Visibility="Collapsed" Text="{Binding BeforeTestText}" />
+
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="TestResultRichTextBox"
+                         Visibility="Collapsed">
+                <FlowDocument>
+                    <BlockUIContainer>
+                        <StackPanel HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding ResultTestText}" FontSize="14" />
+                            <Button Content="Закрыть тест" HorizontalAlignment="Left"
+                                    Command="{Binding CloseTestCommand}" />
+                        </StackPanel>
+                    </BlockUIContainer>
+                </FlowDocument>
+            </RichTextBox>
+
+
+            <TextBlock Grid.Row="2" Text="Выберите один из 4 вариантов ответа:" Foreground="DimGray" />
+
+            <Grid Grid.Row="3" IsEnabled="{Binding IsTestGoing }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <RadioButton Grid.Row="0" Grid.Column="0" Content="1"
+                             Name="FirstRadioButton"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Command="{Binding AnswerCommand}"
+                             CommandParameter="1" />
+                <RadioButton Grid.Row="1" Grid.Column="0" Content="2"
+                             Name="SecondRadioButton"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Command="{Binding AnswerCommand}"
+                             CommandParameter="2" />
+                <RadioButton Grid.Row="2" Grid.Column="0" Content="3"
+                             Name="ThirdRadioButton"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Command="{Binding AnswerCommand}"
+                             CommandParameter="3" />
+                <RadioButton Grid.Row="3" Grid.Column="0" Content="4"
+                             Name="FourthRadioButton"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Command="{Binding AnswerCommand}"
+                             CommandParameter="4" />
+
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" IsReadOnly="True"
+                         Text="{Binding CurrentQuestion.FirstVariant.Text, Mode=OneWay}" />
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0" IsReadOnly="True"
+                         Text="{Binding CurrentQuestion.SecondVariant.Text, Mode=OneWay}" />
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0" IsReadOnly="True"
+                         Text="{Binding CurrentQuestion.ThirdVariant.Text, Mode=OneWay}" />
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="5,0,5,5" IsReadOnly="True"
+                         Text="{Binding CurrentQuestion.FourthVariant.Text, Mode=OneWay}" />
+            </Grid>
+
+            <Grid Grid.Row="4" IsEnabled="{Binding IsTestGoing, UpdateSourceTrigger=PropertyChanged }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Предыдущий вопрос" Width="Auto"
+                        Command="{Binding PreviousQuestionCommand}" />
+                <Button Grid.Column="1" Content="Следующий вопрос" Width="Auto" Command="{Binding NextQuestionCommand}" />
+            </Grid>
+            <Button Grid.Row="5" Content="Завершить тест" Width="Auto" Command="{Binding EndTestCommand}" />
+        </Grid>
+    </DockPanel>
+</Window>
