@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace TestSystemWpfApp.Commands;
+namespace TestSystemClassLibrary.Commands;
 
 public abstract class Command : ICommand
 {

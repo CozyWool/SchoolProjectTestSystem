@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestEditorWpfApp.Models;
+namespace TestSystemClassLibrary.Models;
 
 public class ChooseOneCorrectAnswerQuestion : INotifyPropertyChanged
 {

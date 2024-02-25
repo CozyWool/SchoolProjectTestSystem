@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using TestEditorWpfApp.Commands;
-using TestEditorWpfApp.Models;
+using TestSystemClassLibrary;
+using TestSystemClassLibrary.Commands;
+using TestSystemClassLibrary.Models;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
