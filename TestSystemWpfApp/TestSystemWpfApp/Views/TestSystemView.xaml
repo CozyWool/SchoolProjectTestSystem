@@ -83,7 +83,7 @@
             </RichTextBox>
 
             <TextBox Grid.Row="1" IsReadOnly="True" Name="ConditionTextBox"
-                     Visibility="Collapsed" Text="{Binding BeforeTestText}" />
+                     Visibility="Collapsed" Text="{Binding CurrentQuestion.ConditionText}" />
 
             <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="TestResultRichTextBox"
                          Visibility="Collapsed">
