@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace TestSystemClassLibrary.Models;
 
-public class QuestionVariant : INotifyPropertyChanged
+public sealed class QuestionVariant : INotifyPropertyChanged
 {
     private string _text;
     private bool _isCorrect;
@@ -44,7 +44,7 @@ public class QuestionVariant : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         IsChanged = true;

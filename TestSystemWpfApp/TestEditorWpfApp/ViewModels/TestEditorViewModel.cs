@@ -44,6 +44,11 @@ public class TestEditorViewModel : INotifyPropertyChanged
         get => _selectedQuestionIndex;
         set
         {
+            if (_selectedQuestionIndex != -1 && _selectedQuestion != null)
+            {
+                CurrentTest.QuestionList[_selectedQuestionIndex].CorrectVariantNumber = _selectedQuestion.CorrectVariantNumber;
+            }
+            
             _selectedQuestionIndex = value;
             OnPropertyChanged();
         }
@@ -134,15 +139,17 @@ public class TestEditorViewModel : INotifyPropertyChanged
 
         var savePath = dialog.FileName;
         var saveResult = TestFileManager.Save(CurrentTest, savePath);
-        
+
         if (saveResult)
         {
             CurrentTest.IsTestChanged = false;
-            MessageBox.Show($"Файл сохранен в папку программы под названием: {savePath}.", "Сохранение", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Файл сохранен в папку программы под названием: {savePath}.", "Сохранение",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
         {
-            MessageBox.Show("Произошла ошибка при сохранении файла.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Произошла ошибка при сохранении файла.", "Ошибка!", MessageBoxButton.OK,
+                MessageBoxImage.Error);
         }
     }
 

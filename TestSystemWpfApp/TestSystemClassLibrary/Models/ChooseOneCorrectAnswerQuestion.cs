@@ -35,6 +35,24 @@ public class ChooseOneCorrectAnswerQuestion : INotifyPropertyChanged
             
             return -1;
         }
+        set
+        {
+            switch (value)
+            {
+               case 1: 
+                   FirstVariant.IsCorrect = true;
+                   break;
+               case 2:
+                   SecondVariant.IsCorrect = true;
+                   break;
+               case 3:
+                   ThirdVariant.IsCorrect = true;
+                   break;
+               case 4:
+                   FourthVariant.IsCorrect = true;
+                   break;
+            }  
+        }
     }
 
     public ChooseOneCorrectAnswerQuestion() : this("Новый вопрос", new QuestionVariant(), new QuestionVariant(),
