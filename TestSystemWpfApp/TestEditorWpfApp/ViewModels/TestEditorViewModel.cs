@@ -15,11 +15,11 @@ public class TestEditorViewModel : INotifyPropertyChanged
     private ChooseOneCorrectAnswerQuestion _selectedQuestion;
     private readonly Window _owner;
     private int _selectedQuestionIndex;
-    private Test? _currentTest;
+    private Test _currentTest;
     private bool IsTestCreated => CurrentTest != null;
     private bool IsQuestionSelected => SelectedQuestionIndex != -1;
 
-    public Test? CurrentTest
+    public Test CurrentTest
     {
         get => _currentTest;
         set
@@ -220,9 +220,9 @@ public class TestEditorViewModel : INotifyPropertyChanged
         CurrentTest?.QuestionList.Add(new ChooseOneCorrectAnswerQuestion());
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

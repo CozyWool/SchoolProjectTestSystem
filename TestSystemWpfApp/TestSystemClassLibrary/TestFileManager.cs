@@ -23,7 +23,7 @@ public static class TestFileManager
         
         return true;
     }
-    public static Test? Load(string testPath)
+    public static Test Load(string testPath)
     {
         using var sr = new StreamReader(testPath);
         var json = sr.ReadToEnd();

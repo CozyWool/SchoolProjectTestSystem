@@ -14,7 +14,7 @@ public partial class TestEditorView : Window
         InitializeComponent();
     }
 
-    private void TestEditorView_OnClosing(object? sender, CancelEventArgs e)
+    private void TestEditorView_OnClosing(object sender, CancelEventArgs e)
     {
         if (DataContext is not TestEditorViewModel viewModel) return;
         

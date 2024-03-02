@@ -101,9 +101,9 @@ public class ChooseOneCorrectAnswerQuestion : INotifyPropertyChanged
 
     public QuestionVariant FourthVariant { get; }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         IsChanged = true;

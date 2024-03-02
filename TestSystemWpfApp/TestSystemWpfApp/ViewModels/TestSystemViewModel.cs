@@ -7,7 +7,6 @@ using TestSystemClassLibrary.Commands;
 using TestSystemClassLibrary.Models;
 using TestSystemWpfApp.Views;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TestSystemWpfApp.ViewModels;
@@ -18,7 +17,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private ObservableCollection<int> _userAnswers;
     private readonly TestSystemView _owner;
     private int _currentQuestionIndex;
-    private Test? _currentTest;
+    private Test _currentTest;
     private string _beforeTestText;
     private string _resultTestText;
     private bool _isTestGoing;
@@ -35,7 +34,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         }
     }
 
-    public Test? CurrentTest
+    public Test CurrentTest
     {
         get => _currentTest;
         set
@@ -271,9 +270,9 @@ public class TestSystemViewModel : INotifyPropertyChanged
         ShowStartTestRichTextBox();
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
