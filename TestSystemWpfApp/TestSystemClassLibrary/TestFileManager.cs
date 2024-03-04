@@ -1,40 +1,39 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-using TestSystemClassLibrary.Models;
+using TestSystemWpf.Dto;
 
 namespace TestSystemClassLibrary;
 
 public static class TestFileManager
 {
-    public static bool Save(Test test, string savePath)
+    public static bool Save(Quiz quiz, string filePath)
     {
         try
         {
-            FileInfo fileInfo = new(savePath);
-
-            var json = JsonConvert.SerializeObject(test, Formatting.Indented);
-            using var sw = new StreamWriter(savePath);
-            sw.WriteLine(json);
+            var json = JsonConvert.SerializeObject(quiz, Formatting.Indented);
+            File.WriteAllText(filePath, json);
         }
         catch (Exception)
         {
             return false;
         }
-        
+
         return true;
     }
-    public static Test Load(string testPath)
+
+    public static Quiz Load(string testPath)
     {
         using var sr = new StreamReader(testPath);
         var json = sr.ReadToEnd();
-        var deserialized = JsonConvert.DeserializeObject<Test>(json);
+        var deserialized = JsonConvert.DeserializeObject<Quiz>(json);
         return deserialized;
     }
+
     public static bool Delete(string filePath)
     {
         if (File.Exists(filePath))
             File.Delete(filePath);
-        
+
         return !File.Exists(filePath);
     }
     // public static void ExportWordToFile(DictionaryPart dictPart, string path)

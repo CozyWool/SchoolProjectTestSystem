@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
 
 namespace TestSystemClassLibrary.Models;
 
@@ -9,7 +8,6 @@ public class ChooseOneCorrectAnswerQuestion : INotifyPropertyChanged
     private string _conditionText;
     private bool _isConditionTextChanged;
 
-    [JsonIgnore]
     public bool IsChanged
     {
         get => FirstVariant.IsChanged || SecondVariant.IsChanged || ThirdVariant.IsChanged || FourthVariant.IsChanged ||
@@ -72,7 +70,6 @@ public class ChooseOneCorrectAnswerQuestion : INotifyPropertyChanged
         _isConditionTextChanged = false;
     }
 
-    [JsonIgnore]
     public bool IsFilled => ConditionText.Length > 0 &&
                             FirstVariant.Text.Length > 0 &&
                             SecondVariant.Text.Length > 0 &&

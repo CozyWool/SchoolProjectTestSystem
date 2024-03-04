@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AutoMapper;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
 using TestSystemClassLibrary.Models;
+using TestSystemWpf.Dto;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
@@ -14,6 +16,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
 {
     private ChooseOneCorrectAnswerQuestion _selectedQuestion;
     private readonly Window _owner;
+    private readonly IMapper _mapper;
     private int _selectedQuestionIndex;
     private Test _currentTest;
     private bool IsTestCreated => CurrentTest != null;
@@ -64,10 +67,11 @@ public class TestEditorViewModel : INotifyPropertyChanged
     public Command SaveTestCommand { get; set; }
     public Command QuitCommand { get; set; }
 
-    public TestEditorViewModel(Window owner)
+    public TestEditorViewModel(Window owner, IMapper mapper)
     {
         _owner = owner;
         _owner.DataContext = this;
+        _mapper = mapper;
 
         CreateNewTestCommand = new DelegateCommand(_ => CreateNewTest());
 
@@ -138,7 +142,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
         if (result != DialogResult.OK) return;
 
         var savePath = dialog.FileName;
-        var saveResult = TestFileManager.Save(CurrentTest, savePath);
+        var saveResult = TestFileManager.Save(_mapper.Map<Quiz>(CurrentTest), savePath);
 
         if (saveResult)
         {
@@ -199,7 +203,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
-        CurrentTest = TestFileManager.Load(dialog.FileName) ?? throw new InvalidOperationException();
+        CurrentTest = _mapper.Map<Test>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
     }
 
     private void CreateNewTest()

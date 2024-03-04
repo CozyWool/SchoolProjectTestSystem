@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AutoMapper;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
 using TestSystemClassLibrary.Models;
@@ -16,6 +17,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private ChooseOneCorrectAnswerQuestion _currentQuestion;
     private ObservableCollection<int> _userAnswers;
     private readonly TestSystemView _owner;
+    private readonly IMapper _mapper;
     private int _currentQuestionIndex;
     private Test _currentTest;
     private string _beforeTestText;
@@ -103,9 +105,10 @@ public class TestSystemViewModel : INotifyPropertyChanged
         }
     }
 
-    public TestSystemViewModel(TestSystemView owner)
+    public TestSystemViewModel(TestSystemView owner, IMapper mapper)
     {
         _owner = owner;
+        _mapper = mapper;
         _owner.DataContext = this;
 
         QuestionText = "Информация:";
@@ -262,7 +265,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
-        CurrentTest = TestFileManager.Load(dialog.FileName) ?? throw new InvalidOperationException();
+        CurrentTest = _mapper.Map<Test>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
         CurrentQuestionIndex = 0;
         BeforeTestText = $"Тест \"{CurrentTest.Name}\" открыт.\n" +
                          $"Всего заданий в тесте {CurrentTest.QuestionList.Count}\n" +

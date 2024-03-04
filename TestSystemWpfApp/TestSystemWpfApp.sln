@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEditorWpfApp", "TestEdi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystemClassLibrary", "TestSystemClassLibrary\TestSystemClassLibrary.csproj", "{844E39F0-8771-460D-9C37-DAB3F148B3CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystemWpf.Dto", "TestSystemWpf.Dto\TestSystemWpf.Dto.csproj", "{E396C17F-356A-407D-9F47-D9942C71A93C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{844E39F0-8771-460D-9C37-DAB3F148B3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{844E39F0-8771-460D-9C37-DAB3F148B3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{844E39F0-8771-460D-9C37-DAB3F148B3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E396C17F-356A-407D-9F47-D9942C71A93C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E396C17F-356A-407D-9F47-D9942C71A93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E396C17F-356A-407D-9F47-D9942C71A93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E396C17F-356A-407D-9F47-D9942C71A93C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

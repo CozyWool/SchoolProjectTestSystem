@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
 
 namespace TestSystemClassLibrary.Models;
 
@@ -19,7 +18,6 @@ public class Test : INotifyPropertyChanged
         _isNameChanged = false;
     }
 
-    [JsonConstructor]
     public Test(ObservableCollection<ChooseOneCorrectAnswerQuestion> questionList, string name, bool isNameChanged)
     {
         _questionList = questionList;
@@ -49,12 +47,9 @@ public class Test : INotifyPropertyChanged
         }
     }
 
-    [JsonIgnore]
     public ObservableCollection<int> CorrectAnswers => new(_questionList.Select(question => question.CorrectVariantNumber).ToList());
 
-    [JsonIgnore]
     public bool IsAllQuestionFilled => _questionList.All(question => question.IsFilled);
-    [JsonIgnore]
 
     public bool IsTestChanged
     {

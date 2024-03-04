@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using AutoMapper;
+using TestEditorWpfApp.Configuration;
 using TestEditorWpfApp.ViewModels;
 using Application = System.Windows.Application;
 
@@ -13,8 +15,12 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
+        var configuration = CreateMapperConfiguration();
+        var mapper = configuration.CreateMapper();
         var view = new TestEditorView();
-        var viewModel = new TestEditorViewModel(view);
+        var viewModel = new TestEditorViewModel(view, mapper);
         view.Show();
     }
+
+    private static MapperConfiguration CreateMapperConfiguration() => new(cfg => cfg.AddProfile<AutoMapperProfile>());
 }
