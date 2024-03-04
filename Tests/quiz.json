@@ -1,0 +1,60 @@
+{
+  "Name": "Новый тест1",
+  "Questions": [
+    {
+      "CorrectAnswerNumber": 2,
+      "Answers": [
+        {
+          "Text": "формулировка какая-то"
+        },
+        {
+          "Text": "апвапавпававп"
+        },
+        {
+          "Text": "1323232312"
+        },
+        {
+          "Text": "йцукен"
+        }
+      ],
+      "ConditionText": "Вопрос 1"
+    },
+    {
+      "CorrectAnswerNumber": 3,
+      "Answers": [
+        {
+          "Text": "апвыааыва"
+        },
+        {
+          "Text": "ввв"
+        },
+        {
+          "Text": "смсмсм"
+        },
+        {
+          "Text": "343243243432"
+        }
+      ],
+      "ConditionText": "Вопрос 2"
+    },
+    {
+      "CorrectAnswerNumber": 4,
+      "Answers": [
+        {
+          "Text": "аппавпваа"
+        },
+        {
+          "Text": "смссчмсч"
+        },
+        {
+          "Text": "3321312312"
+        },
+        {
+          "Text": "жлждложождо"
+        }
+      ],
+      "ConditionText": "Вопрос 3"
+    }
+  ],
+  "IsTestChanged": false
+}

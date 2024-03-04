@@ -1,0 +1,65 @@
+{
+  "Name": "Новый тест1",
+  "QuestionList": [
+    {
+      "CorrectVariantNumber": 2,
+      "ConditionText": "Вопрос 1",
+      "FirstVariant": {
+        "Text": "формулировка какая-то",
+        "IsCorrect": false
+      },
+      "SecondVariant": {
+        "Text": "апвапавпававп",
+        "IsCorrect": true
+      },
+      "ThirdVariant": {
+        "Text": "1323232312",
+        "IsCorrect": false
+      },
+      "FourthVariant": {
+        "Text": "йцукен",
+        "IsCorrect": false
+      }
+    },
+    {
+      "CorrectVariantNumber": 3,
+      "ConditionText": "Вопрос 2",
+      "FirstVariant": {
+        "Text": "апвыааыва",
+        "IsCorrect": false
+      },
+      "SecondVariant": {
+        "Text": "ввв",
+        "IsCorrect": false
+      },
+      "ThirdVariant": {
+        "Text": "смсмсм",
+        "IsCorrect": true
+      },
+      "FourthVariant": {
+        "Text": "343243243432",
+        "IsCorrect": false
+      }
+    },
+    {
+      "CorrectVariantNumber": 4,
+      "ConditionText": "Вопрос 3",
+      "FirstVariant": {
+        "Text": "аппавпваа",
+        "IsCorrect": false
+      },
+      "SecondVariant": {
+        "Text": "смссчмсч",
+        "IsCorrect": false
+      },
+      "ThirdVariant": {
+        "Text": "3321312312",
+        "IsCorrect": false
+      },
+      "FourthVariant": {
+        "Text": "жлждложождо",
+        "IsCorrect": true
+      }
+    }
+  ]
+}
