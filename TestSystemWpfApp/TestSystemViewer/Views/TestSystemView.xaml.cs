@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TestSystemWpfApp.Views;
+namespace TestSystemViewer.Views;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

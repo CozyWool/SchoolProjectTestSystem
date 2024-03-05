@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestSystemWpfApp.Models;
+namespace TestSystemViewer.Models;
 
 public class Test : INotifyPropertyChanged
 {

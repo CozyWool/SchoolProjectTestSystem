@@ -5,12 +5,12 @@ using System.Windows;
 using AutoMapper;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
-using TestSystemWpfApp.Models;
-using TestSystemWpfApp.Views;
+using TestSystemViewer.Models;
+using TestSystemViewer.Views;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using MessageBox = System.Windows.MessageBox;
 
-namespace TestSystemWpfApp.ViewModels;
+namespace TestSystemViewer.ViewModels;
 
 public class TestSystemViewModel : INotifyPropertyChanged
 {

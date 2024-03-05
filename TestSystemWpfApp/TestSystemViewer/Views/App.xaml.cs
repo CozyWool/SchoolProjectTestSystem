@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using AutoMapper;
-using TestSystemWpfApp.Configuration;
-using TestSystemWpfApp.ViewModels;
+using TestSystemViewer.Configuration;
+using TestSystemViewer.ViewModels;
 using Application = System.Windows.Application;
 
-namespace TestSystemWpfApp.Views;
+namespace TestSystemViewer.Views;
 
 /// <summary>
 /// Interaction logic for App.xaml

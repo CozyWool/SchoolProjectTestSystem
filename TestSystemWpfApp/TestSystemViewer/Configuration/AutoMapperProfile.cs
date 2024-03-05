@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
+using TestSystemViewer.Models;
 using TestSystemWpf.Dto;
-using TestSystemWpfApp.Models;
 
-namespace TestSystemWpfApp.Configuration;
+namespace TestSystemViewer.Configuration;
 
 public class AutoMapperProfile : Profile
 {
