@@ -14,12 +14,12 @@ namespace TestSystemViewer.ViewModels;
 
 public class TestSystemViewModel : INotifyPropertyChanged
 {
-    private ChooseOneCorrectAnswerQuestion _currentQuestion;
+    private QuestionModel _currentQuestion;
     private ObservableCollection<int> _userAnswers;
     private readonly TestSystemView _owner;
     private readonly IMapper _mapper;
     private int _currentQuestionIndex;
-    private Test _currentTest;
+    private TestModel _currentTestModel;
     private string _beforeTestText;
     private string _resultTestText;
     private bool _isTestGoing;
@@ -36,14 +36,14 @@ public class TestSystemViewModel : INotifyPropertyChanged
         }
     }
 
-    public Test CurrentTest
+    public TestModel CurrentTest
     {
-        get => _currentTest;
+        get => _currentTestModel;
         set
         {
-            _currentTest = value;
+            _currentTestModel = value;
             _userAnswers = new ObservableCollection<int>();
-            for (var i = 0; i < _currentTest?.QuestionList.Count; i++)
+            for (var i = 0; i < _currentTestModel?.Questions.Count; i++)
             {
                 _userAnswers.Add(-1);
             }
@@ -52,7 +52,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         }
     }
 
-    public ChooseOneCorrectAnswerQuestion CurrentQuestion
+    public QuestionModel CurrentQuestion
     {
         get => _currentQuestion;
         set
@@ -67,10 +67,10 @@ public class TestSystemViewModel : INotifyPropertyChanged
         get => _currentQuestionIndex;
         set
         {
-            if (CurrentTest == null || value < 0 || value > CurrentTest.QuestionList.Count) return;
+            if (CurrentTest == null || value < 0 || value > CurrentTest.Questions.Count) return;
 
             _currentQuestionIndex = value;
-            CurrentQuestion = CurrentTest.QuestionList[CurrentQuestionIndex];
+            CurrentQuestion = CurrentTest.Questions[CurrentQuestionIndex];
             OnPropertyChanged();
         }
     }
@@ -116,7 +116,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         IsTestGoing = false;
 
         NextQuestionCommand = new DelegateCommand(_ => NextQuestion(),
-            _ => IsQuestionSelected && IsTestSelected && CurrentQuestionIndex + 1 < CurrentTest.QuestionList.Count);
+            _ => IsQuestionSelected && IsTestSelected && CurrentQuestionIndex + 1 < CurrentTest.Questions.Count);
         PreviousQuestionCommand =
             new DelegateCommand(_ => PreviousQuestion(),
                 _ => IsQuestionSelected && IsTestSelected && CurrentQuestionIndex - 1 >= 0);
@@ -165,7 +165,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         };
 
         var result = $"Тест {CurrentTest.Name} закончен.\n" +
-                     $"Всего заданий в тесте: {CurrentTest.QuestionList.Count}.\n" +
+                     $"Всего заданий в тесте: {CurrentTest.Questions.Count}.\n" +
                      $"Правильно: {rightAnswersCount}\n" +
                      $"Ваш результат: {donePercentage}%.\n" +
                      $"Оценка: {mark}.";
@@ -195,7 +195,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private void NextQuestion()
     {
         if (!IsQuestionSelected || CurrentTest == null ||
-            CurrentQuestionIndex + 1 >= CurrentTest.QuestionList.Count) return;
+            CurrentQuestionIndex + 1 >= CurrentTest.Questions.Count) return;
 
         CurrentQuestionIndex++;
         ResetRadioButtons();
@@ -259,10 +259,10 @@ public class TestSystemViewModel : INotifyPropertyChanged
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
-        CurrentTest = _mapper.Map<Test>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
+        CurrentTest = _mapper.Map<TestModel>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
         CurrentQuestionIndex = 0;
         BeforeTestText = $"Тест \"{CurrentTest.Name}\" открыт.\n" +
-                         $"Всего заданий в тесте {CurrentTest.QuestionList.Count}\n" +
+                         $"Всего заданий в тесте {CurrentTest.Questions.Count}\n" +
                          "Удачи!";
         ShowStartTestRichTextBox();
     }

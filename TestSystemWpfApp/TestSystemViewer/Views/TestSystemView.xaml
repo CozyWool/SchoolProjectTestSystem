@@ -139,13 +139,13 @@
                              CommandParameter="4" />
 
                 <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.FirstVariant.Text, Mode=OneWay}" />
+                         Text="{Binding CurrentQuestion.First.Text, Mode=OneWay}" />
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.SecondVariant.Text, Mode=OneWay}" />
+                         Text="{Binding CurrentQuestion.Second.Text, Mode=OneWay}" />
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.ThirdVariant.Text, Mode=OneWay}" />
+                         Text="{Binding CurrentQuestion.Third.Text, Mode=OneWay}" />
                 <TextBox Grid.Row="3" Grid.Column="1" Margin="5,0,5,5" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.FourthVariant.Text, Mode=OneWay}" />
+                         Text="{Binding CurrentQuestion.Fourth.Text, Mode=OneWay}" />
             </Grid>
 
             <Grid Grid.Row="4" IsEnabled="{Binding IsTestGoing, UpdateSourceTrigger=PropertyChanged }">

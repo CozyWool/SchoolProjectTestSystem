@@ -3,21 +3,11 @@ using System.Runtime.CompilerServices;
 
 namespace TestSystemViewer.Models;
 
-public sealed class QuestionVariant : INotifyPropertyChanged
+public sealed class AnswerVariantModel : INotifyPropertyChanged
 {
     private string _text;
-    private bool _isCorrect;
+    private bool _isSelected;
 
-    public QuestionVariant() : this("", false)
-    {
-        
-    }
-    public QuestionVariant(string text, bool isCorrect)
-    {
-        _text = text;
-        _isCorrect = isCorrect;
-    }
-    
     public string Text
     {
         get => _text;
@@ -28,12 +18,12 @@ public sealed class QuestionVariant : INotifyPropertyChanged
         }
     }
 
-    public bool IsCorrect
+    public bool IsSelected
     {
-        get => _isCorrect;
+        get => _isSelected;
         set
         {
-            _isCorrect = value;
+            _isSelected = value;
             OnPropertyChanged();
         }
     }
