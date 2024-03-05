@@ -1,4 +1,6 @@
-﻿namespace TestSystemViewer.Models;
+﻿using System.Collections.ObjectModel;
+
+namespace TestSystemViewer.Models;
 
 public class QuestionModel : NotifyModelBase
 {
@@ -8,14 +10,18 @@ public class QuestionModel : NotifyModelBase
     {
         get
         {
-            if (First.IsSelected) return 1;
-            if (Second.IsSelected) return 2;
-            if (Third.IsSelected) return 3;
-            if (Fourth.IsSelected) return 4;
+            for (var index = 0; index < Answers.Count; index++)
+            {
+                var answer = Answers[index];
+                if (answer.IsSelected)
+                {
+                    return index;
+                }
+            }
 
             return -1;
         }
-        set
+        /*set
         {
             switch (value)
             {
@@ -32,7 +38,7 @@ public class QuestionModel : NotifyModelBase
                     Fourth.IsSelected = true;
                     break;
             }
-        }
+        }*/
     }
 
     public string ConditionText
@@ -45,11 +51,5 @@ public class QuestionModel : NotifyModelBase
         }
     }
 
-    public AnswerVariantModel First { get; set; }
-
-    public AnswerVariantModel Second { get; set; }
-
-    public AnswerVariantModel Third { get; set; }
-
-    public AnswerVariantModel Fourth { get; set; }
+    public ObservableCollection<AnswerVariantModel> Answers { get; set; }
 }

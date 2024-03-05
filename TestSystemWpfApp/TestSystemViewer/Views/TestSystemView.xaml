@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:TestSystemViewer.ViewModels"
+        xmlns:models="clr-namespace:TestSystemViewer.Models"
         mc:Ignorable="d"
         Title="Тестирующая система" Height="600" Width="800"
         d:DataContext="{d:DesignInstance viewmodels:TestSystemViewModel}">
@@ -101,54 +102,35 @@
 
             <TextBlock Grid.Row="2" Text="Выберите один из 4 вариантов ответа:" Foreground="DimGray" />
 
-            <Grid Grid.Row="3" IsEnabled="{Binding IsTestGoing }">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <ItemsControl Grid.Row="3" IsEnabled="{Binding IsTestGoing }"
+                          ItemsSource="{Binding CurrentQuestion.Answers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid d:DataContext="{d:DesignInstance models:AnswerVariantModel}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <RadioButton Grid.Row="0" Grid.Column="0" Content="{Binding Index}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         IsChecked="{Binding IsSelected}" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0"
+                                     Text="{Binding Text}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                <RadioButton Grid.Row="0" Grid.Column="0" Content="1"
-                             Name="FirstRadioButton"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Command="{Binding AnswerCommand}"
-                             CommandParameter="1" />
-                <RadioButton Grid.Row="1" Grid.Column="0" Content="2"
-                             Name="SecondRadioButton"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Command="{Binding AnswerCommand}"
-                             CommandParameter="2" />
-                <RadioButton Grid.Row="2" Grid.Column="0" Content="3"
-                             Name="ThirdRadioButton"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Command="{Binding AnswerCommand}"
-                             CommandParameter="3" />
-                <RadioButton Grid.Row="3" Grid.Column="0" Content="4"
-                             Name="FourthRadioButton"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             Command="{Binding AnswerCommand}"
-                             CommandParameter="4" />
-
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.First.Text, Mode=OneWay}" />
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.Second.Text, Mode=OneWay}" />
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.Third.Text, Mode=OneWay}" />
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="5,0,5,5" IsReadOnly="True"
-                         Text="{Binding CurrentQuestion.Fourth.Text, Mode=OneWay}" />
-            </Grid>
-
-            <Grid Grid.Row="4" IsEnabled="{Binding IsTestGoing, UpdateSourceTrigger=PropertyChanged }">
+            <Grid Grid.Row="4" IsEnabled="{Binding IsTestGoing, UpdateSourceTrigger=PropertyChanged}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

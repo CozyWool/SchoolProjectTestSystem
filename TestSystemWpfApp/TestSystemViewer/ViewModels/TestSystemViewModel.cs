@@ -211,10 +211,10 @@ public class TestSystemViewModel : INotifyPropertyChanged
 
     private void ResetRadioButtons()
     {
-        _owner.FirstRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 1;
+        /*_owner.FirstRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 1;
         _owner.SecondRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 2;
         _owner.ThirdRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 3;
-        _owner.FourthRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 4;
+        _owner.FourthRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 4;*/
     }
 
     private void ShowChooseTestRichTextBox()
@@ -251,11 +251,9 @@ public class TestSystemViewModel : INotifyPropertyChanged
 
     private void OpenTest()
     {
-        using var dialog = new OpenFileDialog
-        {
-            Filter = "JSON файлы(*.json)|*.json",
-            RestoreDirectory = true
-        };
+        using var dialog = new OpenFileDialog();
+        dialog.Filter = "JSON файлы(*.json)|*.json";
+        dialog.RestoreDirectory = true;
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 

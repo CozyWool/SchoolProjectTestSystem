@@ -5,6 +5,8 @@ public sealed class AnswerVariantModel : NotifyModelBase
     private string _text;
     private bool _isSelected;
 
+    public int Index { get; set; }
+
     public string Text
     {
         get => _text;
