@@ -1,4 +1,4 @@
-﻿namespace TestSystemWpf.Dto;
+﻿namespace TestSystem.Dto;
 
 public class Question
 {

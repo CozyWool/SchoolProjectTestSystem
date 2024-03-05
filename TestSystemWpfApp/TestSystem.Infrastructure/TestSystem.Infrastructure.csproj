@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestSystemWpf.Dto\TestSystemWpf.Dto.csproj" />
+    <ProjectReference Include="..\TestSystem.Dto\TestSystem.Dto.csproj" />
   </ItemGroup>
 
 </Project>

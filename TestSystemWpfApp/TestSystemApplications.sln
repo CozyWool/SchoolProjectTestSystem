@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSystemEditor", "TestSys
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystem.Infrastructure", "TestSystem.Infrastructure\TestSystem.Infrastructure.csproj", "{844E39F0-8771-460D-9C37-DAB3F148B3CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystemWpf.Dto", "TestSystemWpf.Dto\TestSystemWpf.Dto.csproj", "{E396C17F-356A-407D-9F47-D9942C71A93C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystem.Dto", "TestSystem.Dto\TestSystem.Dto.csproj", "{E396C17F-356A-407D-9F47-D9942C71A93C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
