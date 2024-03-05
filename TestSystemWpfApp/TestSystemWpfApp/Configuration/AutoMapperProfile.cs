@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
-using TestSystemClassLibrary.Models;
 using TestSystemWpf.Dto;
+using TestSystemWpfApp.Models;
 
 namespace TestSystemWpfApp.Configuration;
 

@@ -5,7 +5,7 @@ using System.Windows;
 using AutoMapper;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
-using TestSystemClassLibrary.Models;
+using TestSystemWpfApp.Models;
 using TestSystemWpfApp.Views;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using MessageBox = System.Windows.MessageBox;
