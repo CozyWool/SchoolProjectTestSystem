@@ -1,4 +1,4 @@
-﻿namespace TestSystemClassLibrary.Commands;
+﻿namespace TestSystem.Infrastructure.Commands;
 
 public sealed class DelegateCommand : Command
 {

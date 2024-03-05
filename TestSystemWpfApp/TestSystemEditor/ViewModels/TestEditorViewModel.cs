@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using AutoMapper;
-using TestSystemClassLibrary;
-using TestSystemClassLibrary.Commands;
+using TestSystem.Infrastructure;
+using TestSystem.Infrastructure.Commands;
 using TestSystemEditor.Models;
 using TestSystemWpf.Dto;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;

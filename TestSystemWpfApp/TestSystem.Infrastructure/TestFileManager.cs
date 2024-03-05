@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using TestSystemWpf.Dto;
 
-namespace TestSystemClassLibrary;
+namespace TestSystem.Infrastructure;
 
 public static class TestFileManager
 {

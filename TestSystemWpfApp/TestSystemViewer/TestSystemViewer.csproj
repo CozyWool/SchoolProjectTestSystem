@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TestSystemClassLibrary\TestSystemClassLibrary.csproj" />
+      <ProjectReference Include="..\TestSystem.Infrastructure\TestSystem.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
