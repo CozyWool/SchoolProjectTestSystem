@@ -1,9 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿namespace TestSystemViewer.Models;
 
-namespace TestSystemViewer.Models;
-
-public class QuestionModel : INotifyPropertyChanged
+public class QuestionModel : NotifyModelBase
 {
     private string _conditionText;
 
@@ -55,11 +52,4 @@ public class QuestionModel : INotifyPropertyChanged
     public AnswerVariantModel Third { get; set; }
 
     public AnswerVariantModel Fourth { get; set; }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }

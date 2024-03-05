@@ -1,9 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿namespace TestSystemViewer.Models;
 
-namespace TestSystemViewer.Models;
-
-public sealed class AnswerVariantModel : INotifyPropertyChanged
+public sealed class AnswerVariantModel : NotifyModelBase
 {
     private string _text;
     private bool _isSelected;
@@ -26,12 +23,5 @@ public sealed class AnswerVariantModel : INotifyPropertyChanged
             _isSelected = value;
             OnPropertyChanged();
         }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

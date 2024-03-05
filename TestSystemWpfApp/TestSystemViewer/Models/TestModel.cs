@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace TestSystemViewer.Models;
 
-public class TestModel : INotifyPropertyChanged
+public class TestModel : NotifyModelBase
 {
     private ObservableCollection<QuestionModel> _questions;
     private string _name;
@@ -31,11 +29,4 @@ public class TestModel : INotifyPropertyChanged
 
     public ObservableCollection<int> CorrectAnswers =>
         new(_questions.Select(question => question.CorrectVariantNumber).ToList());
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }
