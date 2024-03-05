@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using TestEditorWpfApp.ViewModels;
+using TestSystemEditor.ViewModels;
 
-namespace TestEditorWpfApp.Views;
+namespace TestSystemEditor.Views;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

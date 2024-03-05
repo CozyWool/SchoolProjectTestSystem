@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestEditorWpfApp.Models;
+namespace TestSystemEditor.Models;
 
 public abstract class NotifyModelBase : INotifyPropertyChanged
 {

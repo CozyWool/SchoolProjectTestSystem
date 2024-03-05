@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestSystemWpfApp.Models;
+namespace TestSystemViewer.Models;
 
 public sealed class QuestionVariant : INotifyPropertyChanged
 {

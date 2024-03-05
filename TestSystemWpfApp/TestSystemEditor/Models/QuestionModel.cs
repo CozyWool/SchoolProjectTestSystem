@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace TestEditorWpfApp.Models;
+namespace TestSystemEditor.Models;
 
 public class QuestionModel : NotifyModelBase
 {

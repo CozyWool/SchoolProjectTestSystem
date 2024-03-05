@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
-using TestEditorWpfApp.Models;
+using TestSystemEditor.Models;
 using TestSystemWpf.Dto;
 
-namespace TestEditorWpfApp.Configuration;
+namespace TestSystemEditor.Configuration;
 
 public class AutoMapperProfile : Profile
 {

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using AutoMapper;
-using TestEditorWpfApp.Configuration;
-using TestEditorWpfApp.ViewModels;
+using TestSystemEditor.Configuration;
+using TestSystemEditor.ViewModels;
 
-namespace TestEditorWpfApp.Views;
+namespace TestSystemEditor.Views;
 
 /// <summary>
 /// Interaction logic for App.xaml

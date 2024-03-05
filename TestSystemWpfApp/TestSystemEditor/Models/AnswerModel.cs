@@ -1,4 +1,4 @@
-﻿namespace TestEditorWpfApp.Models;
+﻿namespace TestSystemEditor.Models;
 
 public class AnswerModel : NotifyModelBase
 {

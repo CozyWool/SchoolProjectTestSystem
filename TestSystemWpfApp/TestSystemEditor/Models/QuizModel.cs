@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace TestEditorWpfApp.Models;
+namespace TestSystemEditor.Models;
 
 public class QuizModel : NotifyModelBase
 {

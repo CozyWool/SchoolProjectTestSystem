@@ -2,15 +2,15 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using AutoMapper;
-using TestEditorWpfApp.Models;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
+using TestSystemEditor.Models;
 using TestSystemWpf.Dto;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
 
-namespace TestEditorWpfApp.ViewModels;
+namespace TestSystemEditor.ViewModels;
 
 public class TestEditorViewModel : INotifyPropertyChanged
 {
