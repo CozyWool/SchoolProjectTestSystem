@@ -155,23 +155,14 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private string GetTestResult()
     {
         var rightAnswersCount = CurrentTest.CorrectAnswers.Where((t, i) => t == _userAnswers[i]).Count();
-        var donePercentage = Math.Round((double) rightAnswersCount / CurrentTest.CorrectAnswers.Count * 100, 1);
-        int mark = -1;
-        switch (donePercentage)
+        var donePercentage = Math.Round((double)rightAnswersCount / CurrentTest.CorrectAnswers.Count * 100, 1);
+        var mark = donePercentage switch
         {
-            case >= 80:
-                mark = 5;
-                break;
-            case >= 70:
-                mark = 4;
-                break;
-            case >= 50:
-                mark = 3;
-                break;
-            default:
-                mark = 2;
-                break;
-        }
+            >= 80 => 5,
+            >= 70 => 4,
+            >= 50 => 3,
+            _ => 2
+        };
 
         var result = $"Тест {CurrentTest.Name} закончен.\n" +
                      $"Всего заданий в тесте: {CurrentTest.QuestionList.Count}.\n" +
@@ -233,6 +224,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         _owner.TestResultRichTextBox.Visibility = Visibility.Collapsed;
         _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
     }
+
     private void ShowStartTestRichTextBox()
     {
         _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
@@ -240,6 +232,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         _owner.TestResultRichTextBox.Visibility = Visibility.Collapsed;
         _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
     }
+
     private void ShowTestResultRichTextBox()
     {
         _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
@@ -247,6 +240,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
         _owner.TestResultRichTextBox.Visibility = Visibility.Visible;
         _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
     }
+
     private void ShowConditionTextBox()
     {
         _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
