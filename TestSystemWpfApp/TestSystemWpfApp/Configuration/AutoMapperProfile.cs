@@ -60,7 +60,6 @@ public class AutoMapperProfile : Profile
         var answers = question.Answers;
         return new QuestionVariant
         {
-            IsChanged = false,
             Text = answers[index].Text,
             IsCorrect = question.CorrectAnswerNumber == index
         };

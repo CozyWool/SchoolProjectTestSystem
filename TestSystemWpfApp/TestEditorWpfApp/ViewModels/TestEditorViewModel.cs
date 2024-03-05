@@ -2,9 +2,9 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using AutoMapper;
+using TestEditorWpfApp.Models;
 using TestSystemClassLibrary;
 using TestSystemClassLibrary.Commands;
-using TestSystemClassLibrary.Models;
 using TestSystemWpf.Dto;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
@@ -14,17 +14,19 @@ namespace TestEditorWpfApp.ViewModels;
 
 public class TestEditorViewModel : INotifyPropertyChanged
 {
-    private ChooseOneCorrectAnswerQuestion _selectedQuestion;
+    private QuestionModel _selectedQuestion;
     private readonly Window _owner;
     private readonly IMapper _mapper;
+
     private int _selectedQuestionIndex;
-    private Test _currentTest;
+
+    private QuizModel _currentTest;
 
     private bool IsTestCreated => CurrentTest != null;
 
     private bool IsQuestionSelected => SelectedQuestionIndex != -1;
 
-    public Test CurrentTest
+    public QuizModel CurrentTest
     {
         get => _currentTest;
         set
@@ -34,7 +36,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
         }
     }
 
-    public ChooseOneCorrectAnswerQuestion SelectedQuestion
+    public QuestionModel SelectedQuestion
     {
         get => _selectedQuestion;
         set
@@ -51,8 +53,8 @@ public class TestEditorViewModel : INotifyPropertyChanged
         {
             if (_selectedQuestionIndex != -1 && _selectedQuestion != null)
             {
-                CurrentTest.QuestionList[_selectedQuestionIndex].CorrectVariantNumber =
-                    _selectedQuestion.CorrectVariantNumber;
+                CurrentTest.Questions[_selectedQuestionIndex].CorrectAnswerNumber =
+                    _selectedQuestion.CorrectAnswerNumber;
             }
 
             _selectedQuestionIndex = value;
@@ -60,11 +62,11 @@ public class TestEditorViewModel : INotifyPropertyChanged
         }
     }
 
-    public Command CreateNewTestCommand { get; set; }
+    public Command CreateTestCommand { get; set; }
 
     public Command OpenTestCommand { get; set; }
 
-    public Command CreateNewQuestionCommand { get; set; }
+    public Command CreateQuestionCommand { get; set; }
 
     public Command DeleteQuestionCommand { get; set; }
 
@@ -82,9 +84,8 @@ public class TestEditorViewModel : INotifyPropertyChanged
         _owner.DataContext = this;
         _mapper = mapper;
 
-        CreateNewTestCommand = new DelegateCommand(_ => CreateNewTest());
-
-        CreateNewQuestionCommand = new DelegateCommand(_ => CreateNewQuestion(), _ => IsTestCreated);
+        CreateTestCommand = new DelegateCommand(_ => CreateTest());
+        CreateQuestionCommand = new DelegateCommand(_ => CreateQuestion(), _ => IsTestCreated);
         DeleteQuestionCommand = new DelegateCommand(_ => DeleteQuestion(), _ => IsQuestionSelected && IsTestCreated);
         NextQuestionCommand = new DelegateCommand(_ => NextQuestion(), _ => IsQuestionSelected && IsTestCreated);
         PreviousQuestionCommand =
@@ -153,7 +154,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
 
         if (saveResult)
         {
-            CurrentTest.IsTestChanged = false;
+            CurrentTest.Reset();
             MessageBox.Show($"Файл сохранен в папку программы под названием: {savePath}.", "Сохранение",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -173,7 +174,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
     {
         if (!IsQuestionSelected || CurrentTest == null) return;
 
-        if (SelectedQuestionIndex + 1 < CurrentTest.QuestionList.Count)
+        if (SelectedQuestionIndex + 1 < CurrentTest.Questions.Count)
         {
             SelectedQuestionIndex++;
         }
@@ -193,7 +194,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
         }
         else
         {
-            SelectedQuestionIndex = CurrentTest.QuestionList.Count - 1;
+            SelectedQuestionIndex = CurrentTest.Questions.Count - 1;
         }
     }
 
@@ -207,25 +208,26 @@ public class TestEditorViewModel : INotifyPropertyChanged
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
-        CurrentTest = _mapper.Map<Test>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
+        CurrentTest = _mapper.Map<QuizModel>(TestFileManager.Load(dialog.FileName)) ??
+                      throw new InvalidOperationException();
     }
 
-    private void CreateNewTest()
+    private void CreateTest()
     {
         if (!SaveChanges()) return;
 
-        CurrentTest = new Test();
-        CreateNewQuestion();
+        CurrentTest = new QuizModel();
+        CreateQuestion();
     }
 
     private void DeleteQuestion()
     {
-        CurrentTest?.QuestionList.RemoveAt(SelectedQuestionIndex);
+        CurrentTest?.Questions.RemoveAt(SelectedQuestionIndex);
     }
 
-    private void CreateNewQuestion()
+    private void CreateQuestion()
     {
-        CurrentTest?.QuestionList.Add(new ChooseOneCorrectAnswerQuestion());
+        CurrentTest?.Questions.Add(new QuestionModel());
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

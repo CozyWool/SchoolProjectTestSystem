@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:TestEditorWpfApp.ViewModels"
+        xmlns:models="clr-namespace:TestEditorWpfApp.Models"
         mc:Ignorable="d"
         Title="Редактор тестов" Height="600" Width="800"
         d:DataContext="{d:DesignInstance viewmodels:TestEditorViewModel}"
@@ -34,14 +35,14 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" IsMainMenu="True">
             <MenuItem Header="Файл">
-                <MenuItem Header="Новый тест" Command="{Binding CreateNewTestCommand}" />
+                <MenuItem Header="Новый тест" Command="{Binding CreateTestCommand}" />
                 <MenuItem Header="Открыть тест" Command="{Binding OpenTestCommand}" />
                 <MenuItem Header="Сохранить" Command="{Binding SaveTestCommand}" />
                 <Separator />
                 <MenuItem Header="Выход" Command="{Binding QuitCommand}" />
             </MenuItem>
             <MenuItem Header="Тест">
-                <MenuItem Header="Новый вопрос" Command="{Binding CreateNewQuestionCommand}" />
+                <MenuItem Header="Новый вопрос" Command="{Binding CreateQuestionCommand}" />
                 <MenuItem Header="Удалить вопрос" Command="{Binding DeleteQuestionCommand}" />
                 <!-- <Separator /> -->
                 <!-- <MenuItem Header="Дальше(проверить)..." /> -->
@@ -68,7 +69,7 @@
                             <TextBlock Text="Для начала работы выберите/создайте тест..." FontSize="14" />
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Новый тест" HorizontalAlignment="Left"
-                                        Command="{Binding CreateNewTestCommand}" />
+                                        Command="{Binding CreateTestCommand}" />
                                 <Button Content="Открыть тест" HorizontalAlignment="Left"
                                         Command="{Binding OpenTestCommand}" />
                             </StackPanel>
@@ -89,12 +90,12 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="0" ItemsSource="{Binding  CurrentTest.QuestionList}"
+                <ListBox Grid.Row="0" ItemsSource="{Binding  CurrentTest.Questions}"
                          DisplayMemberPath="ConditionText"
                          SelectedItem="{Binding SelectedQuestion}" Margin="2.5"
                          SelectedIndex="{Binding SelectedQuestionIndex}" />
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Button Content="Новый вопрос" Command="{Binding CreateNewQuestionCommand}" />
+                    <Button Content="Новый вопрос" Command="{Binding CreateQuestionCommand}" />
                     <Button Content="Удалить вопрос" Command="{Binding DeleteQuestionCommand}" />
                 </StackPanel>
             </Grid>
@@ -112,44 +113,32 @@
                 <TextBox Grid.Row="1" Text="{Binding SelectedQuestion.ConditionText}" />
                 <TextBlock Grid.Row="2" Text="Укажите варианты ответа:" Foreground="DimGray" />
 
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <RadioButton Grid.Row="0" Grid.Column="0" Content="1"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.FirstVariant.IsCorrect}" />
-                    <RadioButton Grid.Row="1" Grid.Column="0" Content="2"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.SecondVariant.IsCorrect}" />
-                    <RadioButton Grid.Row="2" Grid.Column="0" Content="3"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.ThirdVariant.IsCorrect}" />
-                    <RadioButton Grid.Row="3" Grid.Column="0" Content="4"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 IsChecked="{Binding SelectedQuestion.FourthVariant.IsCorrect}" />
-
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0"
-                             Text="{Binding SelectedQuestion.FirstVariant.Text}" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,5,0"
-                             Text="{Binding SelectedQuestion.SecondVariant.Text}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0,5,0"
-                             Text="{Binding SelectedQuestion.ThirdVariant.Text}" />
-                    <TextBox Grid.Row="3" Grid.Column="1" Margin="5,0,5,5"
-                             Text="{Binding SelectedQuestion.FourthVariant.Text}" />
-                </Grid>
+                <ItemsControl Grid.Row="3" ItemsSource="{Binding SelectedQuestion.Answers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid d:DataContext="{d:DesignInstance models:AnswerModel}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <RadioButton Grid.Row="0" Grid.Column="0" Content="{Binding Index}"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             IsChecked="{Binding IsSelected}" />
+                                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,0"
+                                         Text="{Binding Text}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>

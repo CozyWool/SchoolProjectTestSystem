@@ -8,23 +8,18 @@ public class Test : INotifyPropertyChanged
 {
     private ObservableCollection<ChooseOneCorrectAnswerQuestion> _questionList;
     private string _name;
-    private bool _isNameChanged;
-
 
     public Test() : this(new(), "Новый тест", false)
     {
         QuestionList = new ObservableCollection<ChooseOneCorrectAnswerQuestion>();
         _name = "Новый тест1";
-        _isNameChanged = false;
     }
 
     public Test(ObservableCollection<ChooseOneCorrectAnswerQuestion> questionList, string name, bool isNameChanged)
     {
         _questionList = questionList;
         _name = name;
-        _isNameChanged = isNameChanged;
     }
-
 
     public string Name
     {
@@ -32,7 +27,6 @@ public class Test : INotifyPropertyChanged
         set
         {
             _name = value;
-            _isNameChanged = true;
             OnPropertyChanged();
         }
     }
@@ -47,16 +41,8 @@ public class Test : INotifyPropertyChanged
         }
     }
 
-    public ObservableCollection<int> CorrectAnswers => new(_questionList.Select(question => question.CorrectVariantNumber).ToList());
-
-    public bool IsAllQuestionFilled => _questionList.All(question => question.IsFilled);
-
-    public bool IsTestChanged
-    {
-        get => _questionList.All(question => question.IsChanged) && _isNameChanged;
-        set => _questionList.AsParallel().ForAll(question => question.IsChanged = value);
-    }
-
+    public ObservableCollection<int> CorrectAnswers =>
+        new(_questionList.Select(question => question.CorrectVariantNumber).ToList());
 
     public event PropertyChangedEventHandler PropertyChanged;
 

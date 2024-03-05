@@ -7,7 +7,6 @@ public sealed class QuestionVariant : INotifyPropertyChanged
 {
     private string _text;
     private bool _isCorrect;
-    public bool IsChanged { get; set; }
 
     public QuestionVariant() : this("", false)
     {
@@ -17,7 +16,6 @@ public sealed class QuestionVariant : INotifyPropertyChanged
     {
         _text = text;
         _isCorrect = isCorrect;
-        IsChanged = false;
     }
     
     public string Text
@@ -45,6 +43,5 @@ public sealed class QuestionVariant : INotifyPropertyChanged
     private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        IsChanged = true;
     }
 }
