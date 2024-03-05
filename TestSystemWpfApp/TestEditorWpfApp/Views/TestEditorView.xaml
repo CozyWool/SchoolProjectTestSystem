@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:TestEditorWpfApp.ViewModels"
         mc:Ignorable="d"
-        Title="Редактор тестов" Height="600" Width="800" d:DataContext="{d:DesignInstance viewmodels:TestEditorViewModel}"
+        Title="Редактор тестов" Height="600" Width="800"
+        d:DataContext="{d:DesignInstance viewmodels:TestEditorViewModel}"
         Closing="TestEditorView_OnClosing">
     <Window.Resources>
         <Style TargetType="MenuItem">
@@ -80,8 +81,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Название теста:"/>
-                <TextBox Grid.Column="1" Text="{Binding CurrentTest.Name}"/>
+                <TextBlock Grid.Column="0" Text="Название теста:" />
+                <TextBox Grid.Column="1" Text="{Binding CurrentTest.Name}" />
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.RowDefinitions>

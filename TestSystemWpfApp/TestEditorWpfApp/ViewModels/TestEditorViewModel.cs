@@ -19,7 +19,9 @@ public class TestEditorViewModel : INotifyPropertyChanged
     private readonly IMapper _mapper;
     private int _selectedQuestionIndex;
     private Test _currentTest;
+
     private bool IsTestCreated => CurrentTest != null;
+
     private bool IsQuestionSelected => SelectedQuestionIndex != -1;
 
     public Test CurrentTest
@@ -49,22 +51,29 @@ public class TestEditorViewModel : INotifyPropertyChanged
         {
             if (_selectedQuestionIndex != -1 && _selectedQuestion != null)
             {
-                CurrentTest.QuestionList[_selectedQuestionIndex].CorrectVariantNumber = _selectedQuestion.CorrectVariantNumber;
+                CurrentTest.QuestionList[_selectedQuestionIndex].CorrectVariantNumber =
+                    _selectedQuestion.CorrectVariantNumber;
             }
-            
+
             _selectedQuestionIndex = value;
             OnPropertyChanged();
         }
     }
 
     public Command CreateNewTestCommand { get; set; }
+
     public Command OpenTestCommand { get; set; }
+
     public Command CreateNewQuestionCommand { get; set; }
+
     public Command DeleteQuestionCommand { get; set; }
+
     public Command NextQuestionCommand { get; set; }
+
     public Command PreviousQuestionCommand { get; set; }
 
     public Command SaveTestCommand { get; set; }
+
     public Command QuitCommand { get; set; }
 
     public TestEditorViewModel(Window owner, IMapper mapper)
@@ -100,7 +109,7 @@ public class TestEditorViewModel : INotifyPropertyChanged
 
     public bool SaveChanges()
     {
-        if (CurrentTest is not {IsTestChanged: true}) return true;
+        if (CurrentTest is not { IsTestChanged: true }) return true;
 
         var dialogResult = MessageBox.Show("Сохранить текущий тест?",
             "Сохранение...",
@@ -133,11 +142,9 @@ public class TestEditorViewModel : INotifyPropertyChanged
                                                 "Пожалуйста, заполните их перед сохранением.");
         }
 
-        using var dialog = new SaveFileDialog
-        {
-            Filter = "JSON файлы(*.json)|*.json",
-            RestoreDirectory = true
-        };
+        using var dialog = new SaveFileDialog();
+        dialog.Filter = "JSON файлы(*.json)|*.json";
+        dialog.RestoreDirectory = true;
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
@@ -190,16 +197,13 @@ public class TestEditorViewModel : INotifyPropertyChanged
         }
     }
 
-
     private void OpenTest()
     {
         if (!SaveChanges()) return;
 
-        using var dialog = new OpenFileDialog
-        {
-            Filter = "JSON файлы(*.json)|*.json",
-            RestoreDirectory = true
-        };
+        using var dialog = new OpenFileDialog();
+        dialog.Filter = "JSON файлы(*.json)|*.json";
+        dialog.RestoreDirectory = true;
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
