@@ -2,10 +2,10 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using AutoMapper;
+using TestSystem.Dto;
 using TestSystem.Infrastructure;
 using TestSystem.Infrastructure.Commands;
 using TestSystemEditor.Models;
-using TestSystemWpf.Dto;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;

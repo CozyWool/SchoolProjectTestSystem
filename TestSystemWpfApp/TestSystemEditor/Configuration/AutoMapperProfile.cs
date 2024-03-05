@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
+using TestSystem.Dto;
 using TestSystemEditor.Models;
-using TestSystemWpf.Dto;
 
 namespace TestSystemEditor.Configuration;
 
