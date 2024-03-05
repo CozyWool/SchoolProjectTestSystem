@@ -12,8 +12,8 @@ public class AutoMapperProfile : Profile
         CreateMap<AnswerVariantModel, Answer>()
             .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
             .ReverseMap()
-            .ForCtorParam(nameof(AnswerVariantModel.Text), opt => opt.MapFrom(src => src.Text))
-            .ForCtorParam(nameof(AnswerVariantModel.IsSelected), opt => opt.MapFrom(src => false));
+            .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Text))
+            .ForMember(dest => dest.IsSelected, opt => opt.MapFrom(src => false));
 
         CreateMap<QuestionModel, Question>()
             .ForMember(dest => dest.CorrectAnswerNumber, opt => opt.MapFrom(src => src.CorrectVariantNumber))
@@ -22,25 +22,23 @@ public class AutoMapperProfile : Profile
                     CreateAnswers(chooseOneCorrectAnswerQuestion, context)))
             .ForMember(dest => dest.ConditionText, opt => opt.MapFrom(src => src.ConditionText))
             .ReverseMap()
-            .ForCtorParam(nameof(QuestionModel.ConditionText),
-                opt => opt.MapFrom(src => src.ConditionText))
-            .ForCtorParam(nameof(QuestionModel.First),
-                opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 0)))
-            .ForCtorParam(nameof(QuestionModel.Second),
-                opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 1)))
-            .ForCtorParam(nameof(QuestionModel.Third),
-                opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 2)))
-            .ForCtorParam(nameof(QuestionModel.Fourth),
-                opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 3)));
+            .ForMember(dest => dest.ConditionText, opt => opt.MapFrom(src => src.ConditionText))
+            .ForMember(dest => dest.First, opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 0)))
+            .ForMember(dest => dest.Second, opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 1)))
+            .ForMember(dest => dest.Third, opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 2)))
+            .ForMember(dest => dest.Fourth, opt => opt.MapFrom((question, _) => CreateQuestionVariant(question, 3)))
+            .ForMember(dest => dest.CorrectVariantNumber, opt => opt.MapFrom(src => src.CorrectAnswerNumber));
 
         CreateMap<TestModel, Quiz>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Questions,
                 opt => opt.MapFrom((test, _, _, context) => CreateQuestions(test, context)))
             .ReverseMap()
-            .ForCtorParam(nameof(TestModel.Questions), opt => opt.MapFrom(CreateQuestions))
-            .ForCtorParam(nameof(TestModel.Name), opt => opt.MapFrom(src => src.Name))
-            .ForCtorParam("isNameChanged", opt => opt.MapFrom(src => false));
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Questions,
+                opt => opt.MapFrom((quiz, _, _, context) => CreateQuestions(quiz, context)))
+            .ForMember(dest => dest.CorrectAnswers,
+                opt => opt.MapFrom(src => CreateCorrectAnswers(src)));
     }
 
     private static Answer[] CreateAnswers(QuestionModel question, ResolutionContext context)
@@ -76,6 +74,19 @@ public class AutoMapperProfile : Profile
     {
         var mapper = context.Mapper;
         return new ObservableCollection<QuestionModel>(
-            quiz.Questions.Select(question => mapper.Map<QuestionModel>(question)));
+            quiz.Questions.Select(question => new QuestionModel
+            {
+                ConditionText = question.ConditionText,
+                First = mapper.Map<AnswerVariantModel>(question.Answers[0]),
+                Second = mapper.Map<AnswerVariantModel>(question.Answers[1]),
+                Third = mapper.Map<AnswerVariantModel>(question.Answers[2]),
+                Fourth = mapper.Map<AnswerVariantModel>(question.Answers[3]),
+                CorrectVariantNumber = question.CorrectAnswerNumber
+            }));
+    }
+
+    private static ObservableCollection<int> CreateCorrectAnswers(Quiz quiz)
+    {
+        return new ObservableCollection<int>(quiz.Questions.Select(q => q.CorrectAnswerNumber));
     }
 }
