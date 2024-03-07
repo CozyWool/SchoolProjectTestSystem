@@ -15,8 +15,9 @@ public partial class App
         base.OnStartup(e);
         var configuration = CreateMapperConfiguration();
         var mapper = configuration.CreateMapper();
-        var view = new TestSystemView();
-        var viewModel = new TestSystemViewModel(view, mapper);
+        var viewModel = new TestSystemViewModel(mapper);
+        var view = new TestSystemView(viewModel);
+        viewModel.CloseAction = view.Close;
         view.Show();
     }
 

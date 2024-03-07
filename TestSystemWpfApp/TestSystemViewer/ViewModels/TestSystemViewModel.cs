@@ -6,7 +6,6 @@ using AutoMapper;
 using TestSystem.Infrastructure;
 using TestSystem.Infrastructure.Commands;
 using TestSystemViewer.Models;
-using TestSystemViewer.Views;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using MessageBox = System.Windows.MessageBox;
 
@@ -16,7 +15,6 @@ public class TestSystemViewModel : INotifyPropertyChanged
 {
     private QuestionModel _currentQuestion;
     private ObservableCollection<int> _userAnswers;
-    private readonly TestSystemView _owner;
     private readonly IMapper _mapper;
     private int _currentQuestionIndex;
     private TestModel _currentTestModel;
@@ -29,6 +27,8 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private bool _isConditionTextVisible;
     private bool IsTestSelected => CurrentTest != null;
     private bool IsQuestionSelected => CurrentQuestionIndex != -1;
+
+    public Action CloseAction { get; set; }
 
     public bool IsTestGoing
     {
@@ -109,11 +109,9 @@ public class TestSystemViewModel : INotifyPropertyChanged
         }
     }
 
-    public TestSystemViewModel(TestSystemView owner, IMapper mapper)
+    public TestSystemViewModel(IMapper mapper)
     {
-        _owner = owner;
         _mapper = mapper;
-        _owner.DataContext = this;
 
         QuestionText = "Информация:";
         _currentQuestionIndex = -1;
@@ -126,7 +124,7 @@ public class TestSystemViewModel : INotifyPropertyChanged
                 _ => IsQuestionSelected && IsTestSelected && CurrentQuestionIndex - 1 >= 0);
         OpenTestCommand = new DelegateCommand(_ => OpenTest());
         CloseTestCommand = new DelegateCommand(_ => CloseTest());
-        QuitCommand = new DelegateCommand(_ => Quit());
+        QuitCommand = new DelegateCommand(_ => CloseAction?.Invoke());
         AnswerCommand = new DelegateCommand(answerNumber => Answer(Convert.ToInt32(answerNumber)),
             _ => IsTestSelected && IsQuestionSelected);
         StartTestCommand = new DelegateCommand(_ => StartTest(), _ => !_isTestGoing && IsTestSelected);
@@ -190,12 +188,6 @@ public class TestSystemViewModel : INotifyPropertyChanged
         if (answerNumber < 0 || answerNumber >= _userAnswers.Count) return;
 
         _userAnswers[_currentQuestionIndex] = answerNumber;
-    }
-
-
-    private void Quit()
-    {
-        _owner.Close();
     }
 
     private void NextQuestion()
