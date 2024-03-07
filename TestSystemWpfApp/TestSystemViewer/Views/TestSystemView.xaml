@@ -54,8 +54,8 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="{Binding QuestionText}" Foreground="DimGray" />
-            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="ChooseTestRichTextBox"
-                         Visibility="Visible">
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True"
+                         Visibility="{Binding IsChooseTestVisible, Converter={StaticResource BoolToVisibility}}">
                 <FlowDocument>
                     <BlockUIContainer>
                         <StackPanel HorizontalAlignment="Left">
@@ -66,8 +66,8 @@
                     </BlockUIContainer>
                 </FlowDocument>
             </RichTextBox>
-            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="StartTestRichTextBox"
-                         Visibility="Collapsed">
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True"
+                         Visibility="{Binding IsStartTestVisible, Converter={StaticResource BoolToVisibility}}">
                 <FlowDocument>
                     <BlockUIContainer>
                         <StackPanel HorizontalAlignment="Left">
@@ -83,11 +83,13 @@
                 </FlowDocument>
             </RichTextBox>
 
-            <TextBox Grid.Row="1" IsReadOnly="True" Name="ConditionTextBox"
-                     Visibility="Collapsed" Text="{Binding CurrentQuestion.ConditionText}" />
+            <TextBox Grid.Row="1" IsReadOnly="True"
+                     Text="{Binding CurrentQuestion.ConditionText}"
+                     Visibility="{Binding IsConditionTextVisible, Converter={StaticResource BoolToVisibility}}">
+            </TextBox>
 
-            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True" Name="TestResultRichTextBox"
-                         Visibility="Collapsed">
+            <RichTextBox Grid.Row="1" IsReadOnly="True" IsDocumentEnabled="True"
+                         Visibility="{Binding IsTestResultsVisible, Converter={StaticResource BoolToVisibility}}">
                 <FlowDocument>
                     <BlockUIContainer>
                         <StackPanel HorizontalAlignment="Left">

@@ -23,6 +23,10 @@ public class TestSystemViewModel : INotifyPropertyChanged
     private string _beforeTestText;
     private string _resultTestText;
     private bool _isTestGoing;
+    private bool _isChooseTestVisible;
+    private bool _isStartTestVisible;
+    private bool _isTestResultsVisible;
+    private bool _isConditionTextVisible;
     private bool IsTestSelected => CurrentTest != null;
     private bool IsQuestionSelected => CurrentQuestionIndex != -1;
 
@@ -127,6 +131,8 @@ public class TestSystemViewModel : INotifyPropertyChanged
             _ => IsTestSelected && IsQuestionSelected);
         StartTestCommand = new DelegateCommand(_ => StartTest(), _ => !_isTestGoing && IsTestSelected);
         EndTestCommand = new DelegateCommand(_ => EndTest(), _ => IsTestGoing);
+
+        ShowChooseTestRichTextBox();
     }
 
     private void StartTest()
@@ -217,36 +223,76 @@ public class TestSystemViewModel : INotifyPropertyChanged
         _owner.FourthRadioButton.IsChecked = _userAnswers[_currentQuestionIndex] == 4;*/
     }
 
+    public bool IsChooseTestVisible
+    {
+        get => _isChooseTestVisible;
+        set
+        {
+            _isChooseTestVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsStartTestVisible
+    {
+        get => _isStartTestVisible;
+        set
+        {
+            _isStartTestVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsTestResultsVisible
+    {
+        get => _isTestResultsVisible;
+        set
+        {
+            _isTestResultsVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsConditionTextVisible
+    {
+        get => _isConditionTextVisible;
+        set
+        {
+            _isConditionTextVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
     private void ShowChooseTestRichTextBox()
     {
-        _owner.ChooseTestRichTextBox.Visibility = Visibility.Visible;
-        _owner.StartTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.TestResultRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
+        IsChooseTestVisible = true;
+        IsStartTestVisible = false;
+        IsTestResultsVisible = false;
+        IsConditionTextVisible = false;
     }
 
     private void ShowStartTestRichTextBox()
     {
-        _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.StartTestRichTextBox.Visibility = Visibility.Visible;
-        _owner.TestResultRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
+        IsChooseTestVisible = false;
+        IsStartTestVisible = true;
+        IsTestResultsVisible = false;
+        IsConditionTextVisible = false;
     }
 
     private void ShowTestResultRichTextBox()
     {
-        _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.StartTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.TestResultRichTextBox.Visibility = Visibility.Visible;
-        _owner.ConditionTextBox.Visibility = Visibility.Collapsed;
+        IsChooseTestVisible = false;
+        IsStartTestVisible = false;
+        IsTestResultsVisible = true;
+        IsConditionTextVisible = false;
     }
 
     private void ShowConditionTextBox()
     {
-        _owner.ChooseTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.StartTestRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.TestResultRichTextBox.Visibility = Visibility.Collapsed;
-        _owner.ConditionTextBox.Visibility = Visibility.Visible;
+        IsChooseTestVisible = false;
+        IsStartTestVisible = false;
+        IsTestResultsVisible = false;
+        IsConditionTextVisible = true;
     }
 
     private void OpenTest()
@@ -257,7 +303,8 @@ public class TestSystemViewModel : INotifyPropertyChanged
         var result = dialog.ShowDialog();
         if (result != DialogResult.OK) return;
 
-        CurrentTest = _mapper.Map<TestModel>(TestFileManager.Load(dialog.FileName)) ?? throw new InvalidOperationException();
+        CurrentTest = _mapper.Map<TestModel>(TestFileManager.Load(dialog.FileName)) ??
+                      throw new InvalidOperationException();
         CurrentQuestionIndex = 0;
         BeforeTestText = $"Тест \"{CurrentTest.Name}\" открыт.\n" +
                          $"Всего заданий в тесте {CurrentTest.Questions.Count}\n" +
